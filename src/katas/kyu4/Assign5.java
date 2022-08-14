@@ -1,4 +1,4 @@
-package kyu_4;
+package katas.kyu4;
 
 import java.util.ArrayList;
 import java.util.List;

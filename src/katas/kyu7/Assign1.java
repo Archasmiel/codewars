@@ -1,4 +1,4 @@
-package kyu_7;
+package katas.kyu7;
 
 public class Assign1 {
 

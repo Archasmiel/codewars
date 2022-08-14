@@ -1,4 +1,4 @@
-package kyu_3;
+package katas.kyu3;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.regex.*;
 public class Assign2 {
 
     private static final Map<Integer, BigInteger> factorials = new HashMap<>();
-    private static final BigInteger one = new BigInteger("1");
+    private static final BigInteger one = BigInteger.ONE;
 
     private static BigInteger pow(int n, int power) {
         return new BigInteger(String.valueOf(n)).pow(power);
@@ -20,7 +20,7 @@ public class Assign2 {
             factorials.put(0, one);
 
         if (!factorials.containsKey(num)) {
-            BigInteger res = new BigInteger("1");
+            BigInteger res = BigInteger.ONE;
             for (int i = 2 ; i <= num ; i++) {
                 res = res.multiply(new BigInteger(String.valueOf(i)));
             }
@@ -47,11 +47,13 @@ public class Assign2 {
 
     public static String expand(String expr) {
         List<Integer> coefs = new ArrayList<>();
-        String vari = Pattern.compile("[a-z]+").matcher(expr).results().findFirst().get().group();
+        Optional<MatchResult> variation = Pattern.compile("[a-z]+").matcher(expr).results().findFirst();
+        String vari = "";
+        if (variation.isPresent()) vari = variation.get().group();
 
         if (expr.startsWith("(-" + vari)) coefs.add(-1);
         else if (expr.startsWith("(" + vari)) coefs.add(1);
-        Pattern.compile("[-]?[0-9]+").matcher(expr).results().map(MatchResult::group).forEach(e -> coefs.add(Integer.parseInt(e)));
+        Pattern.compile("-?[\\d]+").matcher(expr).results().map(MatchResult::group).forEach(e -> coefs.add(Integer.parseInt(e)));
 
         if (coefs.get(0) == 0 && coefs.get(1) == 0) return "0";
         if (coefs.get(0) == 0) return "" + (long) Math.pow(coefs.get(1), coefs.get(2));

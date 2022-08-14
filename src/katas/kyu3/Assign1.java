@@ -1,10 +1,10 @@
-package kyu_3;
+package katas.kyu3;
 
 // https://www.codewars.com/kata/52bb6539a4cf1b12d90005b7/train/java
 
 public class Assign1 {
 
-    public static final String[][] shipStates = {
+    protected static final String[][] shipStates = {
             { "000 010 000", "000 010 000" },
             { "0000 0110 0000", "000 010 010 000" },
             { "00000 01110 00000", "000 010 010 010 000" },
@@ -13,17 +13,17 @@ public class Assign1 {
 
     static class Field {
 
-        private final int[][] field;
+        private final int[][] matrix;
 
 
 
         public Field(int[][] battlefield) {
-            this.field = battlefield;
+            this.matrix = battlefield;
         }
 
         public boolean checkDotsCount() {
             int count = 0;
-            for (int[] ints : field)
+            for (int[] ints : matrix)
                 for (int j: ints)
                     if (j == 1)
                         count++;
@@ -34,7 +34,7 @@ public class Assign1 {
             StringBuilder builder = new StringBuilder();
             for (int i = x ; i < x+sizeX ; i++) {
                 for (int j = y ; j < y+sizeY ; j++) {
-                    builder.append(field[i][j]);
+                    builder.append(matrix[i][j]);
                 }
                 if (i < x+sizeX-1) builder.append(" ");
             }
@@ -46,8 +46,8 @@ public class Assign1 {
             int sX = 3 + (mode == 0 ? type : 0);
             int sY = 3 + (mode == 0 ? 0 : type);
 
-            for (int i = 0 ; i < field.length-sX+1 ; i++) {
-                for (int j = 0 ; j < field.length-sY+1 ; j++) {
+            for (int i = 0; i < matrix.length-sX+1 ; i++) {
+                for (int j = 0; j < matrix.length-sY+1 ; j++) {
                     for (int k = 0 ; k < 2 ; k++) {
                         if (cutShipPattern(i, j, sX, sY).equals(shipStates[type][k])) {
                             count++;
@@ -84,11 +84,7 @@ public class Assign1 {
 
         for (int i = 0 ; i < field.length + 2 ; i++) {
             for (int j = 0 ; j < field.length + 2 ; j++) {
-                if (i == 0 || i == field.length+1){
-                    newField[i][j] = 0;
-                    continue;
-                }
-                if (j == 0 || j == field.length+1){
+                if ((i == 0 || i == field.length+1) || (j == 0 || j == field.length+1)){
                     newField[i][j] = 0;
                     continue;
                 }

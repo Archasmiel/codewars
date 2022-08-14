@@ -1,4 +1,4 @@
-package kyu_6;
+package katas.kyu6;
 
 import java.util.Arrays;
 
